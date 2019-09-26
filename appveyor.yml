@@ -24,4 +24,14 @@ artifacts:
 clone_depth: 1
 on_finish :
   # any cleanup in here
-deploy: off
+deploy:
+  - provider: BinTray
+    username: leechdraw
+    api_key:
+      secure: 7UZLpQDNHzWkM9w1hwASkR4vDKqD5zfncIg4XCt9GdjDA1FZlf8k1Lw8baTfYuM+
+    subject: leechdraw
+    repo: ytm
+    package: ytm
+    publish: true
+    override: true
+    explode: true
