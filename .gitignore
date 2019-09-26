@@ -40,5 +40,5 @@ msbuild.wrn
 template.txt
 template.txt.*
 publis/
-.publish/
+.publish
 
