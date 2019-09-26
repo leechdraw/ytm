@@ -1,0 +1,10 @@
+{
+  "VideoDescriptionTemplate": "template.txt",
+  "Mp3Root": "mp3",
+  "VideoRoot": "video",
+  "FfMpeg": "/usr/local/bin/ffmpeg",
+  "YtSecret": "secret.json",
+  "YtUserName": "leechdraw",
+  "CreatePlaylistAsPublic": true,
+  "UploadVideoAsPublic": true
+}
