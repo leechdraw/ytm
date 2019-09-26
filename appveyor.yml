@@ -13,11 +13,11 @@ before_build:
   # Display minimal restore text
   - cmd: dotnet restore ./ytm/ytm.csproj --verbosity m
 build_script:
-  - cmd: dotnet publish ./ytm/ytm.csproj -o ./.publish
+  - cmd: dotnet publish ./ytm/ytm.csproj -o ../.publish
 after_build:
   # For once the build has completed
 artifacts:
- - path: '.\ytm\.publish'
+ - path: '.publish'
    name: ytm.zip
    type: zip
 clone_depth: 1
