@@ -17,7 +17,6 @@ function ExtractVersionFromScript {
         [string]$content
     )
     return [int]((($content -match '\$ScriptVersion\ \=\ (\d+)') -split ' ') | Select-Object -Last 1).Trim()
-    
 }
 
 function UpdateScriptVersionIfNeed {
@@ -42,6 +41,7 @@ function UpdateScriptVersionIfNeed {
         Write-Host "Please, rename file [new_install.ps1] into [install.ps1]"
         exit 0
     }
+    Write-Host "Install script has latest version!"
 }
 # functions
 
