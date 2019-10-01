@@ -16,7 +16,12 @@ function ExtractVersionFromScript {
     param (
         [string]$content
     )
-    return [int]((($content -match '\$ScriptVersion\ \=\ (\d+)') -split ' ') | Select-Object -Last 1).Trim()
+    $mtch = $content -match '\$ScriptVersion\ \=\ (\d+)'
+    if($mtch)
+    {
+        return [int]$Matches[1]
+    } 
+    return 0
 }
 
 function UpdateScriptVersionIfNeed {
@@ -43,8 +48,21 @@ function UpdateScriptVersionIfNeed {
     }
     Write-Host "Install script has latest version!"
 }
+
+function CheckFolderStructure 
+{
+    $folders = "mp3", "video", "ffmpeg"
+    $folders = $folders | ForEach-Object{Join-Path $workDir $_}
+    $folders | ForEach-Object {
+        if(!(Test-Path $_))
+        {
+            New-Item -ItemType Directory -Path $_ -Force
+        }
+    }
+}
 # functions
 
 # main
 UpdateScriptVersionIfNeed
+CheckFolderStructure
 
