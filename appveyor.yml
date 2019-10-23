@@ -16,7 +16,7 @@ build_script:
   - cmd: dotnet publish ./ytm/ytm.csproj -o .publish
 after_build:
   # For once the build has completed
-  - cmd: dir .
+  - cmd: cp -Recurse .\scripts .\.publish\
 artifacts:
  - path: '.\.publish'
    name: ytm

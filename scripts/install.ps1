@@ -10,6 +10,8 @@ $ErrorActionPreference = "Stop"
 
 $githubUri = "https://raw.githubusercontent.com/leechdraw/ytm/dev/scripts/install.ps1"
 $bintrayUri = "https://api.bintray.com/packages/leechdraw/ytm/ytm/versions/_latest"
+$bintrayDownloadUri = "https://dl.bintray.com/leechdraw/ytm/ytm.zip"
+
 # get cur dir
 # check if newer version of this script exists
 # find if install info exists
@@ -106,13 +108,35 @@ function GetLatestAvailableVersionOfBinnary {
     $result = Invoke-RestMethod -Method Get -Uri $bintrayUri
     $latestVersion = $result.name
     wLog "Latest version is $($latestVersion)"
-    $installDir = Join-Path $workDir $latestVersion
+    $installDir = Join-Path $workDir $latestVersion    
+    $uri = $bintrayDownloadUri
+    $versionZip = Join-Path $workDir "$latestVersion`_version.zip"
+    if(Test-Path $versionZip)
+    {
+        wLog "Latest version already downloaded!"
+    }
+    else {
+        $uri
+        Invoke-WebRequest -Uri $uri -OutFile $versionZip    
+        wLog "Version downloaded into $versionZip"
+    }
+
     if(Test-Path $installDir)
     {
-        wLog "Latest version already installed!"
-        exit 0
+        wLog "Install directory [$installDir`] exists!"
+        $cic = (Get-ChildItem -Filter *.* -Path $installDir).Count
+        if($cic -gt 1)
+        {
+            wLog "Version archive already expanded!"
+        }
+        else {
+            Expand-Archive -LiteralPath $versionZip -DestinationPath $installDir        
+        }
+    } else {
+        Expand-Archive -LiteralPath $versionZip -DestinationPath $installDir
     }
-    New-Item -Path $installDir -Force -ItemType Directory
+
+
 }
 
 # functions
