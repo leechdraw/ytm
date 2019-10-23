@@ -19,7 +19,7 @@ after_build:
   - cmd: cp -r .\scripts .\.publish\
 artifacts:
  - path: '.\.publish'
-   name: ytm_{version}
+   name: "ytm_{version}"
    type: zip
 clone_depth: 1
 on_finish :
