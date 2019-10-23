@@ -2,7 +2,14 @@
 $ScriptVersion = 1
 #version#
 
+# MS is suck
+[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
+$ErrorActionPreference = "Stop"
+#
+
+
 $githubUri = "https://raw.githubusercontent.com/leechdraw/ytm/dev/scripts/install.ps1"
+$bintrayUri = "https://api.bintray.com/packages/leechdraw/ytm/ytm/versions/_latest"
 # get cur dir
 # check if newer version of this script exists
 # find if install info exists
@@ -14,7 +21,7 @@ $rootLogDir = Join-Path $workDir "logs"
 $scriptLogDir = Join-Path $rootLogDir "installer"
 if(!(Test-Path $scriptLogDir))
 {
-    New-Item -Path $scriptLogDir -Force -ErrorAction Stop -ItemType Directory
+    New-Item -Path $scriptLogDir -Force -ItemType Directory
 }
 
 # functions
@@ -50,7 +57,7 @@ function wLog {
         "Text" = $text
         "IsError" = $isError
     } | ConvertTo-Json -Depth 32 -Compress
-    $outputD | Out-File -Append -FilePath $outputFile -ErrorAction Stop
+    $outputD | Out-File -Append -FilePath $outputFile
 }
 
 function UpdateScriptVersionIfNeed {
@@ -68,9 +75,9 @@ function UpdateScriptVersionIfNeed {
                 wLog "Please, rename file [new_install.ps1] into [install.ps1]"
                 exit 0
             }
-            Remove-Item $newVersionFile -Force -ErrorAction Stop            
+            Remove-Item $newVersionFile -Force         
         }
-        $repoScript | Set-Content -Path $newVersionFile -ErrorAction Stop -Force -Encoding utf8
+        $repoScript | Set-Content -Path $newVersionFile -Force -Encoding utf8
         wLog "Install script was updated from Version [$ScriptVersion`] to [$repoVersionOfScript]."
         wLog "Please, rename file [new_install.ps1] into [install.ps1]"
         exit 0
@@ -94,9 +101,24 @@ function CheckFolderStructure
         }
     }
 }
+
+function GetLatestAvailableVersionOfBinnary {
+    $result = Invoke-RestMethod -Method Get -Uri $bintrayUri
+    $latestVersion = $result.name
+    wLog "Latest version is $($latestVersion)"
+    $installDir = Join-Path $workDir $latestVersion
+    if(Test-Path $installDir)
+    {
+        wLog "Latest version already installed!"
+        exit 0
+    }
+    New-Item -Path $installDir -Force -ItemType Directory
+}
+
 # functions
 
 # main
 UpdateScriptVersionIfNeed
 CheckFolderStructure
+GetLatestAvailableVersionOfBinnary
 
