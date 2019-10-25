@@ -10,8 +10,8 @@ $ErrorActionPreference = "Stop"
 
 $githubUri = "https://raw.githubusercontent.com/leechdraw/ytm/dev/scripts/install.ps1"
 $bintrayUri = "https://api.bintray.com/packages/leechdraw/ytm/ytm/versions/_latest"
-$bintrayDownloadUri = "https://dl.bintray.com/leechdraw/ytm/ytm.zip"
-
+$bintrayDownloadUriPrefix = "https://dl.bintray.com/leechdraw/ytm/ytm"
+$globalLastVersion = ""
 # get cur dir
 # check if newer version of this script exists
 # find if install info exists
@@ -109,7 +109,7 @@ function GetLatestAvailableVersionOfBinnary {
     $latestVersion = $result.name
     wLog "Latest version is $($latestVersion)"
     $installDir = Join-Path $workDir $latestVersion    
-    $uri = $bintrayDownloadUri
+    $uri = "$bintrayDownloadUriPrefix`_$latestVersion`.zip"
     $versionZip = Join-Path $workDir "$latestVersion`_version.zip"
     if(Test-Path $versionZip)
     {
@@ -130,13 +130,14 @@ function GetLatestAvailableVersionOfBinnary {
             wLog "Version archive already expanded!"
         }
         else {
-            Expand-Archive -LiteralPath $versionZip -DestinationPath $installDir        
+            Expand-Archive -LiteralPath $versionZip -DestinationPath $installDir   
+            wLog "Version $latestVersion expanded into $installDir"
         }
     } else {
         Expand-Archive -LiteralPath $versionZip -DestinationPath $installDir
+        wLog "Version $latestVersion expanded into $installDir"
     }
-
-
+    $globalLastVersion = $latestVersion
 }
 
 # functions
@@ -145,4 +146,3 @@ function GetLatestAvailableVersionOfBinnary {
 UpdateScriptVersionIfNeed
 CheckFolderStructure
 GetLatestAvailableVersionOfBinnary
-
