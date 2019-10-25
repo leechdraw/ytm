@@ -146,3 +146,4 @@ function GetLatestAvailableVersionOfBinnary {
 UpdateScriptVersionIfNeed
 CheckFolderStructure
 GetLatestAvailableVersionOfBinnary
+Get
