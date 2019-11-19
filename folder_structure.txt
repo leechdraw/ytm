@@ -1,0 +1,6 @@
+/
+    - mp3 # default folder for mp3 files
+    - video # default output for video convertion result
+    - ffmpeg # converter folder if not installed in system
+    - [x.y.z] # folders with installed version
+    - logs # folder with all logs

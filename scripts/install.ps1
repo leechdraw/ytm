@@ -140,10 +140,20 @@ function GetLatestAvailableVersionOfBinnary {
     $globalLastVersion = $latestVersion
 }
 
+function UpdateRunScript {
+    $runScriptPath = Join-Path $workDir "run.me.ps1"
+    if (Test-Path $runScriptPath)
+    {
+        Remove-Item -Path $runScriptPath -Force
+    }
+    $currentDllFile = Join-Path (Join-Path $workDir $globalLastVersion) "ytm.dll"
+    
+}
+
 # functions
 
 # main
 UpdateScriptVersionIfNeed
 CheckFolderStructure
 GetLatestAvailableVersionOfBinnary
-Get
+UpdateRunScript
