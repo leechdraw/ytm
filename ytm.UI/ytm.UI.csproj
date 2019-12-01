@@ -18,4 +18,7 @@
     <PackageReference Include="Avalonia.Desktop" Version="0.8.2" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="0.8.2" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ytm\ytm.csproj" />
+  </ItemGroup>
 </Project>
