@@ -15,6 +15,7 @@ using Google.Apis.YouTube.v3;
 using Google.Apis.YouTube.v3.Data;
 using ytm.Helpers;
 using ytm.Models;
+using ytm.Services;
 
 namespace ytm
 {
@@ -123,7 +124,7 @@ namespace ytm
             MainConfig config;
             try
             {
-                config = MainConfig.Load(MainConfigFile);
+                config = new ConfigProvider(MainConfigFile).GetConfig();
             }
             catch (Exception e)
             {
@@ -131,12 +132,6 @@ namespace ytm
                 return false;
             }
 
-            var valResult = config.Validate();
-            if (!string.IsNullOrEmpty(valResult))
-            {
-                Lg(valResult, true);
-                return false;
-            }
 
             var templateFileName = config.VideoDescriptionTemplate;
             var (isValid, errorText) = new FileInfo(templateFileName).IsValidTemplate();

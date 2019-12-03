@@ -1,6 +1,7 @@
 ﻿using System;
 using Avalonia;
 using Avalonia.Logging.Serilog;
+using ytm.Services;
 using ytm.UI.ViewModels;
 using ytm.UI.Views;
 
@@ -24,9 +25,10 @@ namespace ytm.UI
         // container, etc.
         private static void AppMain(Application app, string[] args)
         {
+            var resolver = new Resolver(args);
             var window = new MainWindow
             {
-                DataContext = new MainWindowViewModel(),
+                DataContext = new MainWindowViewModel(/*resolver.Get<IConfigProvider>()*/),
             };
 
             app.Run(window);

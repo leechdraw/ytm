@@ -9,9 +9,11 @@
         Title="ytm.UI">
 
     <Design.DataContext>
-        <vm:MainWindowViewModel/>
+        <vm:MainWindowViewModel />
     </Design.DataContext>
 
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
+    <Panel>
+        <TextBlock Text="{Binding Greeting}" />
+        <TextBlock Text="{Binding MainConfig.Mp3Path}" />
+    </Panel>
 </Window>
