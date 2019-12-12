@@ -7,7 +7,7 @@ namespace ytm.Services
 {
     public interface IConfigProvider
     {
-        MainConfig GetConfig();
+        MainConfig GetConfig(bool skipValidate = false);
     }
 
     public class ConfigProvider : IConfigProvider
@@ -20,7 +20,7 @@ namespace ytm.Services
             _configFileName = configFileName ?? throw new ArgumentNullException(nameof(configFileName));
         }
 
-        public MainConfig GetConfig()
+        public MainConfig GetConfig(bool skipValidate = false)
         {
             if (_config != null)
             {
@@ -33,10 +33,13 @@ namespace ytm.Services
             }
 
             var config = Load(_configFileName);
-            var validateResult = Validate(config);
-            if (!string.IsNullOrEmpty(validateResult))
+            if (!skipValidate)
             {
-                throw new Exception($"Файл {_configFileName} имеет проблемы!\r\n{validateResult}");
+                var validateResult = Validate(config);
+                if (!string.IsNullOrEmpty(validateResult))
+                {
+                    throw new Exception($"Файл {_configFileName} имеет проблемы!\r\n{validateResult}");
+                }
             }
 
             _config = config;

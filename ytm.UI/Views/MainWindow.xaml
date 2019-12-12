@@ -13,7 +13,6 @@
     </Design.DataContext>
 
     <Panel>
-        <TextBlock Text="{Binding Greeting}" />
-        <TextBlock Text="{Binding MainConfig.Mp3Path}" />
+        <TextBlock Text="{Binding MainConfig.Mp3Folder}" />
     </Panel>
 </Window>

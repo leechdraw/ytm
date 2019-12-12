@@ -1,16 +1,18 @@
+using System;
+using JetBrains.Annotations;
 using ytm.Services;
 
 namespace ytm.UI.ViewModels
 {
     public class MainConfigViewModel : ViewModelBase
     {
-        private readonly IConfigProvider _configProvider;
+        private readonly Func<IConfigProvider> _getProvider;
 
-        public MainConfigViewModel(/*IConfigProvider configProvider*/)
+        public MainConfigViewModel([NotNull] Func<IConfigProvider> getProvider)
         {
-            //_configProvider = configProvider;
+            _getProvider = getProvider ?? throw new ArgumentNullException(nameof(getProvider));
         }
 
-        public string Mp3Path => _configProvider.GetConfig().Mp3Root;
+        public string Mp3Folder => _getProvider()?.GetConfig(true)?.FfMpeg;
     }
 }

@@ -1,5 +1,6 @@
 using Autofac;
 using ytm.Services;
+using ytm.UI.Helpers;
 
 namespace ytm.UI
 {
@@ -23,7 +24,7 @@ namespace ytm.UI
         {
             var builder = new ContainerBuilder();
             builder
-                .Register(_ => new ConfigProvider(_args[0]))
+                .Register(_ => new ConfigProvider(_args.GetPathToMainConfig()))
                 .As<IConfigProvider>()
                 .SingleInstance();
 

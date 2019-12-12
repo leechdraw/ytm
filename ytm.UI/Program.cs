@@ -28,7 +28,11 @@ namespace ytm.UI
             var resolver = new Resolver(args);
             var window = new MainWindow
             {
-                DataContext = new MainWindowViewModel(/*resolver.Get<IConfigProvider>()*/),
+                DataContext = new MainWindowViewModel
+                {
+                    ConfigProvider = resolver.Get<IConfigProvider>()
+                },
+                
             };
 
             app.Run(window);
