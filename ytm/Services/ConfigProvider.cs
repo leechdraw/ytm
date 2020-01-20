@@ -94,8 +94,8 @@ namespace ytm.Services
             var paths = new[]
             {
                 Path.Join(dir, ConfigDefaultName),
-                Path.Join(Path.GetPathRoot(dir), ConfigDefaultName),
-                Path.Join(Path.GetPathRoot(Path.GetPathRoot(dir)), configFileName)
+                Path.Join(Path.GetDirectoryName(dir), ConfigDefaultName),
+                Path.Join(Path.GetDirectoryName(Path.GetDirectoryName(dir)), ConfigDefaultName)
             };
             var result = paths.FirstOrDefault(File.Exists);
 
