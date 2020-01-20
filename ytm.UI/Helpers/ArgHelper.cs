@@ -11,7 +11,7 @@ namespace ytm.UI.Helpers
 
         private static string GetDefaultMainConfigPath()
         {
-            return "main_config.json";
+            return "NOCONFIG";
         }
     }
 }

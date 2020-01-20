@@ -6,13 +6,19 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="ytm.UI.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
-        Title="ytm.UI">
+        Title="YouTube Manager"
+        WindowStartupLocation="CenterOwner"
+        Width="800"
+        Height="600">
 
     <Design.DataContext>
         <vm:MainWindowViewModel />
     </Design.DataContext>
 
-    <Panel>
-        <TextBlock Text="{Binding MainConfig.Mp3Folder}" />
-    </Panel>
+    <Grid RowDefinitions="Auto, *">
+        <Grid Grid.Row="0">
+        </Grid>
+        <Grid Grid.Row="1">
+        </Grid>
+    </Grid>
 </Window>
