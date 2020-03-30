@@ -3,6 +3,7 @@
         xmlns:vm="clr-namespace:ytm.UI.ViewModels;assembly=ytm.UI"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:models="clr-namespace:ytm.UI.Models"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="ytm.UI.Views.MainWindow"
         Icon="/Assets/avalonia-logo.ico"
@@ -14,11 +15,27 @@
     <Design.DataContext>
         <vm:MainWindowViewModel />
     </Design.DataContext>
+<!--
+todo: Добавить в верхную менюшку вывод всего конфига
+todo: вывести в верхнюю менюшку текст результат валидации в виде надписи - все ок или посмотреть ошибки
 
-    <Grid RowDefinitions="Auto, *">
+-->
+    <Grid RowDefinitions="Auto,*,100">
         <Grid Grid.Row="0">
         </Grid>
         <Grid Grid.Row="1">
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid RowDefinitions="Auto,*">
+                <TextBlock Text="Logs" Grid.Row="0"/>
+                <ListBox Items="{Binding Logs}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="models:LogItemModel">
+                            <TextBlock Text="{Binding Text}"></TextBlock>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
         </Grid>
     </Grid>
 </Window>
